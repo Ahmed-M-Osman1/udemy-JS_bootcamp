@@ -1,3 +1,4 @@
-let name = 'Ahmed';
-
-console.log(name)
+let firstName = 'Ahmed'
+let lastName = 'Mamdouh'
+let fullName = firstName + ' ' + lastName
+console.log(fullName)
