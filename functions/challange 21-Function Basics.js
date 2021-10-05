@@ -4,7 +4,7 @@ let convertToCelsuis = function (num){
     return celsuis    
 }
 
-let firstTest = convertToCelsuis(32)
-console.log(firstTest)
-let secoundTest = convertToCelsuis(68)
-console.log(secoundTest)
+let firstTemp = convertToCelsuis(32)
+console.log(firstTemp)
+let secoundTemp = convertToCelsuis(68)
+console.log(secoundTemp)
