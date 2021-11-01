@@ -10,7 +10,11 @@ console.log(result)
 //Default argument.
 
 let getScoreText = function (name = null ,score = 0) {
-return 'name : '+ name + ' score : ' + score
+return `name : ${name} score : ${score}`
 }
 
-getScoreText("ahmed",100)
+console.log(getScoreText("ahmed",100))
+
+let name = 'Ahmed'
+let age = 28 
+console.log(`Hay , may name ${name}! and I'm ${age} years old`)
