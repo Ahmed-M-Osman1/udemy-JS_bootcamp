@@ -6,10 +6,18 @@
     <body>
         <h1>Todo App</h1>
         <div></div>
-        <button>add new Todo</button>
+        <input id='filter-todo' type='text' placeholder="Filter Todo">
         <h5>My Todo list:</h5>
-        <p></p>
+        <div id="filter-todo-div">
+        </div>
+        <label>
+            <input type='checkbox' id='hideCompleted'> Hide Completed Todo.
+        </label>
         
+        <form id='add-note'>
+        <input type='text' placeholder="New Todo" name='addTodo'>
+        <button>add new Todo</button>
+        </form>
         <script src="todo-app.js"></script>
     </body>
 </html>

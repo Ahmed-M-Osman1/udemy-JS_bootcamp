@@ -30,8 +30,47 @@ text.textContent = 'This is a new element from javascript.'
 document.querySelector('body').appendChild(text)
 */
 
-document.querySelector('button').addEventListener('click', function(e){
+const filter = {
+    searchText: ''
+}
+
+const renderNote = function(notes,filter){
+    const filterNote = notes.filter(function(note){
+        return note.title.toLowerCase().includes(filter.searchText.toLowerCase())
+    })
+    document.querySelector('#notes').innerHTML = ''
+
+    filterNote.forEach(function (note){
+        const noteEL = document.createElement('p')
+        noteEL.textContent = note.title
+        document.querySelector('#notes').appendChild(noteEL)
+    })
+}
+
+renderNote(notes,filter)
+
+document.querySelector('#create-note').addEventListener('click', function(e){
     console.log('did this work ?')
-    console.log(e)
     e.target.textContent = 'Hi all'
+})
+
+// document.querySelector('#remove-all').addEventListener('click',function(){
+//     document.querySelectorAll('.note').forEach(function(note){
+//         note.remove()
+//     })
+// })
+
+document.querySelector('#search-text').addEventListener('input',function(e){
+    filter.searchText = e.target.value
+    renderNote(notes,filter)
+})
+
+// document.querySelector('#name-form').addEventListener('submit',function(e){
+//     e.preventDefault()
+//     console.log(e.target.elements.firstName.value)
+//     e.target.elements.firstName.value = ''
+// })
+
+document.querySelector('#for-fun').addEventListener('change',function(e){
+    console.log(e.target.checked)
 })
