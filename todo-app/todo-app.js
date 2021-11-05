@@ -46,3 +46,8 @@ todo.forEach(function (todo) {
   leftTodo.textContent = `${todo.text}`;
   document.querySelector("body").appendChild(leftTodo);
 });
+
+// listen for new todo creation
+document.querySelector('button').addEventListener('click', function(e){
+  console.log('add new Todo')
+})

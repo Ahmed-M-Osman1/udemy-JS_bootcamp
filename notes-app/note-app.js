@@ -30,4 +30,8 @@ text.textContent = 'This is a new element from javascript.'
 document.querySelector('body').appendChild(text)
 */
 
-document.querySelector('button').addEventListener('')
+document.querySelector('button').addEventListener('click', function(e){
+    console.log('did this work ?')
+    console.log(e)
+    e.target.textContent = 'Hi all'
+})
