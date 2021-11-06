@@ -1,17 +1,30 @@
-const notes = [
-    {
-        title:'my next trip.',
-        body:'I would like to go to spain.'
-    },{
-        title:'Hobbits to work on.',
-        body:'Exercise, Eating a bit better.'
-    },{
-        title:'Office modification.',
-        body:'Get a new seats.'
-    }
-]
+const notes = getSaveNotes()
 
-/*
+const filter = {
+    searchText: ''
+}
+
+renderNote(notes,filter)
+
+document.querySelector('#create-note').addEventListener('click', function(e){
+    notes.push({
+        title: '',
+        body:''
+    })
+    saveNotes(notes)
+    renderNote(notes,filter)
+})
+
+document.querySelector('#search-text').addEventListener('input',function(e){
+    filter.searchText = e.target.value
+    renderNote(notes,filter)
+})
+
+document.querySelector('#filter-by').addEventListener('change',function(e){
+    console.log(e.target.value)
+  })
+
+/*                     --:OLD CODE:--
 //query and remove.
 // const p = document.querySelector('p')
 // p.remove()
@@ -30,29 +43,20 @@ text.textContent = 'This is a new element from javascript.'
 document.querySelector('body').appendChild(text)
 */
 
-const filter = {
-    searchText: ''
-}
+// localStorage.setItem('location','Cairo')
+//console.log(localStorage.getItem('location'))
+//localStorage.clear()
+// const user = {
+//     name: 'Ahmed',
+//     age: 28
+// }
+// const userJSON = JSON.stringify(user)
+// console.log(userJSON)
+// localStorage.setItem('user',userJSON)
+// const userJSON = localStorage.getItem('user')
+// const ahmed = JSON.parse(userJSON)
+// console.log(`${ahmed.name} is ${ahmed.age}`)
 
-const renderNote = function(notes,filter){
-    const filterNote = notes.filter(function(note){
-        return note.title.toLowerCase().includes(filter.searchText.toLowerCase())
-    })
-    document.querySelector('#notes').innerHTML = ''
-
-    filterNote.forEach(function (note){
-        const noteEL = document.createElement('p')
-        noteEL.textContent = note.title
-        document.querySelector('#notes').appendChild(noteEL)
-    })
-}
-
-renderNote(notes,filter)
-
-document.querySelector('#create-note').addEventListener('click', function(e){
-    console.log('did this work ?')
-    e.target.textContent = 'Hi all'
-})
 
 // document.querySelector('#remove-all').addEventListener('click',function(){
 //     document.querySelectorAll('.note').forEach(function(note){
@@ -60,10 +64,6 @@ document.querySelector('#create-note').addEventListener('click', function(e){
 //     })
 // })
 
-document.querySelector('#search-text').addEventListener('input',function(e){
-    filter.searchText = e.target.value
-    renderNote(notes,filter)
-})
 
 // document.querySelector('#name-form').addEventListener('submit',function(e){
 //     e.preventDefault()
@@ -74,8 +74,3 @@ document.querySelector('#search-text').addEventListener('input',function(e){
 // document.querySelector('#for-fun').addEventListener('change',function(e){
 //     console.log(e.target.checked)
 // })
-
-
-document.querySelector('#filter-by').addEventListener('change',function(e){
-    console.log(e.target.value)
-  })
