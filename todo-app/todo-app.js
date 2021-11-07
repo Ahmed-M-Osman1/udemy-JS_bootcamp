@@ -1,25 +1,4 @@
-let todo = [
-  {
-    text: "Pray",
-    Completed: true,
-  },
-  {
-    text: "Read",
-    Completed: true,
-  },
-  {
-    text: "Learn",
-    Completed: false,
-  },
-  {
-    text: "Sleep",
-    Completed: false,
-  },
-  {
-    text: "Eat",
-    Completed: true,
-  },
-];
+let todos = [];
 
 const filter = {
   searchBox: "",
@@ -32,25 +11,26 @@ document
   .querySelector("#hideCompleted")
   .addEventListener("change", function (e) {
     filter.hideCompleted = e.target.checked;
-    renderTodo(todo, filter);
+    renderTodo(todos, filter);
   });
 
-renderTodo(todo, filter);
+renderTodo(todos, filter);
 
 document.querySelector("#filter-todo").addEventListener("input", function (e) {
   filter.searchBox = e.target.value;
-  renderTodo(todo, filter);
+  renderTodo(todos, filter);
 });
 
 document.querySelector("#add-note").addEventListener("submit", function (e) {
   e.preventDefault();
-  todo.push({
+  todos.push({
+    id: uuidv4(),
     text: e.target.elements.addTodo.value,
     Completed: false,
   });
-  saveTodo(todo);
+  saveTodo(todos);
   e.target.elements.addTodo.value = "";
-  renderTodo(todo, filter);
+  renderTodo(todos, filter);
 });
 
 /*                     --:OLD CODE:--
