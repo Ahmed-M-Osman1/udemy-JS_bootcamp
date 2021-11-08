@@ -5,61 +5,101 @@ const getSaveNotes = function () {
   if (notesJSON !== null) {
     return JSON.parse(notesJSON);
   } else {
-      return []
+    return [];
   }
 };
 // remove note from the list
-const removeNote = function(id){
-    const noteIndex = notes.findIndex(function(note){
-        return note.id === id
-    })
-    if(noteIndex >-1){
-        notes.splice(noteIndex,1)
-    }
-}
-
+const removeNote = function (id) {
+  const noteIndex = notes.findIndex(function (note) {
+    return note.id === id;
+  });
+  if (noteIndex > -1) {
+    notes.splice(noteIndex, 1);
+  }
+};
 
 // generate the DOM structure for a note.
-const generateNoteDOM = function(note){
+const generateNoteDOM = function (note) {
+  const noteEL = document.createElement("div");
+  const button = document.createElement("button");
 
-const noteEL = document.createElement('div')
-const textEL = document.createElement('span')
-const button = document.createElement('button')
+  // make the A tag
+  const textEL = document.createElement("a");
+  textEL.setAttribute("href", `/edit.html#${note.id}`);
+  textEL.addEventListener("click", function (e) {
+    console.log(e);
+  });
 
-//setup the remove note button
-button.textContent = 'X'
-noteEL.appendChild(button)
-button.addEventListener('click',function(){
-    removeNote(note.id)
-    saveNotes(notes)
-    renderNote(notes,filter)
-})
+  //setup the remove note button
+  button.textContent = "X";
+  noteEL.appendChild(button);
+  button.addEventListener("click", function () {
+    removeNote(note.id);
+    saveNotes(notes);
+    renderNote(notes, filter);
+  });
 
-//setup the text title
-        if(note.title.length > 0){
-            textEL.textContent = note.title
-        document.querySelector('#notes').appendChild(textEL)
-    } else {
-        textEL.textContent = 'Unnamed note'
-    }
-    noteEL.appendChild(textEL)
-    return noteEL
-}
+  //setup the text title
+  if (note.title.length > 0) {
+    textEL.textContent = note.title;
+    document.querySelector("#notes").appendChild(textEL);
+  } else {
+    textEL.textContent = "Unnamed note";
+  }
+  noteEL.appendChild(textEL);
+  return noteEL;
+};
 
-// Render application 
+// Render application
 
-const renderNote = function(notes,filter){
-    const filterNote = notes.filter(function(note){
-        return note.title.toLowerCase().includes(filter.searchText.toLowerCase())
-    })
-    document.querySelector('#notes').innerHTML = ''
-    filterNote.forEach(function (note){
-        const noteEL = generateNoteDOM(note)
-        document.querySelector('#notes').appendChild(noteEL)
-    })
-}
+const renderNote = function (notes, filter) {
+  notes = sortNote(notes, filter.sortBy);
+  const filterNote = notes.filter(function (note) {
+    return note.title.toLowerCase().includes(filter.searchText.toLowerCase());
+  });
+  document.querySelector("#notes").innerHTML = "";
+  filterNote.forEach(function (note) {
+    const noteEL = generateNoteDOM(note);
+    document.querySelector("#notes").appendChild(noteEL);
+  });
+};
 
 // Save Notes
-const saveNotes = function(notes){
-localStorage.setItem('notes',JSON.stringify(notes))
-}
+const saveNotes = function (notes) {
+  localStorage.setItem("notes", JSON.stringify(notes));
+};
+
+// sort the note by one of three ways:
+const sortNote = function (notes, sortBy) {
+  if (sortBy === "byEdited") {
+    return notes.sort(function (a, b) {
+      if (a.updatedAt > b.updatedAt) {
+        return -1;
+      } else if (a.updatedAt < b.updatedAt) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+  } else if (sortBy === "byCreated") {
+    return notes.sort(function (a, b) {
+      if (a.createdAt > b.createdAt) {
+        return 1;
+      } else if (a.createdAt < b.createdAt) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })
+  } else if (sortBy === "byAlphabetic") {
+    return notes.sort(function (a, b) {
+      if (a.title.toLowerCase() > b.title.toLowerCase()) {
+        return 1;
+      } else if (a.title.toLowerCase() < b.title.toLowerCase()) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })
+  }
+};
