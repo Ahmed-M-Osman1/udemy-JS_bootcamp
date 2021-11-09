@@ -1,5 +1,5 @@
 // fetch existing TODOs from localStorage.
-const getSaveTodos = function () {
+const getSaveTodos = ()=> {
   const JSONTodo = localStorage.getItem("storedTodo");
   if (JSONTodo !== null) {
     todos = JSON.parse(JSONTodo);
@@ -7,25 +7,21 @@ const getSaveTodos = function () {
 };
 
 // remove Todo:
-const removeTodo = function(id){
-  const todoIndex = todos.findIndex(function(todo){
-    return todo.id === id 
-  })
+const removeTodo = (id) => {
+  const todoIndex = todos.findIndex( (todo)=> todo.id === id)
   if (todoIndex > -1){
     todos.splice(todoIndex,1)
   }
 }
 
 //change the complete of todo:
-const changeComplete = function(id){
-  const changedTodoIndex = todos.findIndex(function(todo){
-    return todo.id === id
-  })
+const changeComplete = (id)=> {
+  const changedTodoIndex = todos.findIndex( (todo)=> todo.id === id)
   todos[changedTodoIndex].Completed = !todos[changedTodoIndex].Completed
 }
 // andrew solution was the same but he use (find not findIndex)
 // Get the DOM element:
-const generateTodoDOM = function (filterTodo) {
+const generateTodoDOM = (filterTodo) => {
   const todoContainer = document.createElement("div");
   const leftTodo = document.createElement("span");
 
@@ -51,7 +47,7 @@ const generateTodoDOM = function (filterTodo) {
   removeBtn.textContent = "x";
   todoContainer.appendChild(removeBtn);
 
-  removeBtn.addEventListener('click', function(){
+  removeBtn.addEventListener('click', () => {
     removeTodo(filterTodo.id)
     saveTodo(todos)
     renderTodo(todos, filter)
@@ -62,14 +58,10 @@ const generateTodoDOM = function (filterTodo) {
 };
 
 // render TODO:
-const renderTodo = function (todos, filter) {
-  const filterTodo = todos.filter(function (todos) {
-    return todos.text.toLowerCase().includes(filter.searchBox.toLowerCase());
-  });
+const renderTodo = (todos, filter) => {
+  const filterTodo = todos.filter((todos)=>todos.text.toLowerCase().includes(filter.searchBox.toLowerCase()));
   document.querySelector("#filter-todo-div").innerHTML = "";
-  const leftTodo = filterTodo.filter(function (todos) {
-    return todos.Completed === false;
-  });
+  const leftTodo = filterTodo.filter((todos)=>todos.Completed === false);
 
   const leftTodotext = document.createElement("h2");
   leftTodotext.textContent = ` There is ${leftTodo.length} todos left`;

@@ -9,19 +9,19 @@ getSaveTodos();
 
 document
   .querySelector("#hideCompleted")
-  .addEventListener("change", function (e) {
+  .addEventListener("change", (e) => {
     filter.hideCompleted = e.target.checked;
     renderTodo(todos, filter);
   });
 
 renderTodo(todos, filter);
 
-document.querySelector("#filter-todo").addEventListener("input", function (e) {
+document.querySelector("#filter-todo").addEventListener("input",(e)=> {
   filter.searchBox = e.target.value;
   renderTodo(todos, filter);
 });
 
-document.querySelector("#add-note").addEventListener("submit", function (e) {
+document.querySelector("#add-note").addEventListener("submit", (e)=> {
   e.preventDefault();
   todos.push({
     id: uuidv4(),
