@@ -7,7 +7,7 @@ const lastEdit = document.querySelector("#last-edit")
 
 
 let note = notes.find((note) => note.id === noteID);
-if (note === undefined) {
+if (!note) {
   location.assign("/index.html");
 }
 //title change
@@ -38,7 +38,7 @@ window.addEventListener("storage", (e) => {
   if (e.key === "notes") {
     notes = JSON.parse(e.newValue);
     let note = notes.find((note)=> note.id === noteID);
-    if (note === undefined) {
+    if (!note) {
       location.assign("/index.html");
     }
     //title change

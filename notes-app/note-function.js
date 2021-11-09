@@ -2,12 +2,9 @@
 const getSaveNotes = () => {
   const notesJSON = localStorage.getItem("notes");
 
-  if (notesJSON !== null) {
-    return JSON.parse(notesJSON);
-  } else {
-    return [];
-  }
+return notesJSON ? JSON.parse(notesJSON) : []
 };
+
 // remove note from the list
 const removeNote = (id) => {
   const noteIndex = notes.findIndex((note)=> note.id === id);

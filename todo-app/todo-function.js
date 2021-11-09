@@ -1,10 +1,9 @@
 // fetch existing TODOs from localStorage.
 const getSaveTodos = ()=> {
   const JSONTodo = localStorage.getItem("storedTodo");
-  if (JSONTodo !== null) {
-    todos = JSON.parse(JSONTodo);
-  }
-};
+  
+  return JSONTodo ? todos = JSON.parse(JSONTodo): []
+  };
 
 // remove Todo:
 const removeTodo = (id) => {
