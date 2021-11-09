@@ -1,8 +1,21 @@
+'use strict'
+
+// const isPublic = true
+// let date
+// const processDate = () => {
+//   date = '123456'
+// }
+// processDate()
+// console.log(date)
+
 // fetch existing TODOs from localStorage.
 const getSaveTodos = ()=> {
   const JSONTodo = localStorage.getItem("storedTodo");
-  
-  return JSONTodo ? todos = JSON.parse(JSONTodo): []
+  try {
+    return JSONTodo ? JSON.parse(JSONTodo) : []
+   } catch (e){
+    return []
+   }
   };
 
 // remove Todo:
