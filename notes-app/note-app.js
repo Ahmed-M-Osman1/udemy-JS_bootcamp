@@ -1,5 +1,7 @@
 'use strict'
 
+const HangmanGame1 = new HangmanGame('Try me',2)
+console.log(HangmanGame1.Guessed())
 
 let notes = getSaveNotes()
 
