@@ -5,35 +5,67 @@
 
 const puzzleEl = document.querySelector('#theWord')
 const guessesEl = document.querySelector('#remaining')
-const game1 = new Hangman('try me', 2)
-
-puzzleEl.textContent = game1.puzzle
-guessesEl.textContent = game1.statusMessage
+let game1 
 
 window.addEventListener('keypress', function (e) {
     const guess = String.fromCharCode(e.charCode)
     game1.makeGuess(guess)
+    render()
+})
+
+// Making an HTTP request.
+// getPuzzle('2').then((puzzle)=>{
+//     console.log(puzzle)
+// }).catch((error)=>{
+//     console.log(`error:${error}`)
+// })
+
+const render = () =>{
     puzzleEl.textContent = game1.puzzle 
     guessesEl.textContent = game1.statusMessage
-})
-// Making an HTTP request.
-getPuzzle((error, puzzle)=>{
-    if (error){
-        console.log(`Error : ${error}`)
-    } else (
-        console.log(puzzle)
-    )
-})
+}
 
-getCountry('us', (error,country)=>{
-    if(error){
-        console.log(error)
-    } else {
-        console.log(country)
-    }
-})
+const startGame = async()=>{
+    const puzzle = await getPuzzle('2')
+    console.log(puzzle)
+    game1 = new Hangman(puzzle,5)
+    render()
+}
+
+document.querySelector('#reset').addEventListener('click',startGame)
+
+startGame()
+
+// getCurrentCountry().then((country)=>{
+//     console.log(country.name)
+// }).catch((error)=>{
+//     console.log(`error:${error}`)
+// })
+
+// getCountry('US').then((country) => {
+//     console.log(country.name)
+// }).catch((err) => {
+//     console.log(`Error: ${err}`)
+// })
+
+// getLocation().then((location) => {
+//     return console.log(location.city , location.country)
+// }).catch((err) => {
+//     console.log(`Error from location: ${err}`)
+// })
 
 
+// fetch('http://puzzle.mead.io/puzzle', {}).then((response)=>{
+//     if( response.status === 200){
+//         return response.json()
+//     }else{
+// throw new Error('unable to fetch the puzzle')
+//     }
+// }).then((data)=>{
+//     console.log(data.puzzle)
+// }).catch((error)=>{
+//     console.log(error)
+// })
 
 
 /*              == Old Code ==
